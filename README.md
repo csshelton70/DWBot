@@ -14,6 +14,11 @@ Discord bot for Dungeon World games
   <appSettings>
 
     <add key="discord_token" value="generated from discord dev site"/>
+    <add key="discord_prefix" value="!"/>
+    <add key="discord_logging" value="information"/>
+    <!--
+      logging options: none, critical, error, warning, information, debug, trace
+    -->
 
   </appSettings>
 </configuration>
@@ -21,8 +26,11 @@ Discord bot for Dungeon World games
 
 # Libraries used
 *  [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)
-**  or Install-Package DSharpPlus
-**     Install-Package DSharpPlus.CommandsNext
-**     Install-Package DSharpPlus.Interactivity
 *  [DiceRoller](https://github.com/skizzerz/DiceRoller)
-** or Install-Package DiceRoller
+
+
+## Nuget Commands to install Packages
+* Install-Package DSharpPlus
+* Install-Package DSharpPlus.CommandsNext
+* Install-Package DSharpPlus.Interactivity
+* Install-Package DiceRoller

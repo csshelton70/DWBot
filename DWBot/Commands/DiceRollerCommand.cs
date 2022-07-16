@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DWBot.Commands
 {
-    public class ClassDiceRollerCommand : BaseCommandModule
+    public class DiceRollerCommand : BaseCommandModule
     {
         public Random Rng { private get; set; }
 
