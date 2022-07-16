@@ -21,8 +21,11 @@ Discord bot for Dungeon World games
 
 # Libraries used
 *  [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)
-**  or Install-Package DSharpPlus
-**     Install-Package DSharpPlus.CommandsNext
-**     Install-Package DSharpPlus.Interactivity
 *  [DiceRoller](https://github.com/skizzerz/DiceRoller)
-** or Install-Package DiceRoller
+
+
+## Nuget Commands to install Packages
+* Install-Package DSharpPlus
+* Install-Package DSharpPlus.CommandsNext
+* Install-Package DSharpPlus.Interactivity
+* Install-Package DiceRoller
