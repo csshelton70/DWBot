@@ -3,6 +3,9 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Exceptions;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
+using DSharpPlus.Interactivity;
+using DSharpPlus.Interactivity.Enums;
+using DSharpPlus.Interactivity.Extensions;
 using DSPlus.Examples;
 using DWBot.Commands;
 using Emzi0767.Utilities;
@@ -19,6 +22,7 @@ namespace ConsoleApp1
         public readonly EventId BotEventId = new EventId(42, "Bot-Ex01");
         public DiscordClient discord { get; set; }
         public CommandsNextExtension commands { get; set; }
+        public InteractivityExtension interactivity { get; set; }
 
         public static void Main(string[] args)
         {
@@ -50,6 +54,15 @@ namespace ConsoleApp1
             //Create the client
             discord = new DiscordClient(config);
 
+            discord.UseInteractivity(new InteractivityConfiguration
+            {
+                // default pagination behaviour to just ignore the reactions
+                PaginationBehaviour = PaginationBehaviour.Ignore,
+
+                // default timeout for other actions to 2 minutes
+                Timeout = TimeSpan.FromMinutes(2)
+            });
+
             //Enable commands
             commands = discord.UseCommandsNext(commandsConfig);
 
@@ -59,6 +72,8 @@ namespace ConsoleApp1
             commands.RegisterCommands<ExampleUngrouppedCommands>();
             commands.RegisterCommands<ExampleGrouppedCommands>();
             commands.RegisterCommands<ExampleExecutableGroup>();
+            commands.RegisterCommands<ExampleInteractiveCommands>();
+
 
             discord.Ready += this.Client_Ready;
             discord.GuildAvailable += this.Client_GuildAvailable;
