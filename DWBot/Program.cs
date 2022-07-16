@@ -108,6 +108,7 @@ namespace ConsoleApp1
             {
                 e.Context.Client.Logger.LogError(BotEventId, $"{e.Context.User.Username} tried executing '{e.Command?.QualifiedName ?? "<unknown command>"}' but it errored: {e.Exception.GetType()}: {e.Exception.Message ?? "<no message>"}", DateTime.Now);
             }
+
             // let's check if the error is a result of lack
             // of required permissions
             if (e.Exception is ChecksFailedException ex)
@@ -126,7 +127,7 @@ namespace ConsoleApp1
                 };
                 await e.Context.RespondAsync(embed);
             }
-            else
+            else if ( e.Exception is DSharpPlus.CommandsNext.Exceptions.CommandNotFoundException)
             {
                 var emoji = DiscordEmoji.FromName(e.Context.Client, ":no_entry:");
 
@@ -135,6 +136,19 @@ namespace ConsoleApp1
                 {
                     Title = "Unknown Command",
                     Description = $"{emoji} Command was not recognized:{cmd}",
+                    Color = new DiscordColor(0xFF0000) // red
+                };
+                await e.Context.RespondAsync(embed);
+            }
+            else
+            {
+                var emoji = DiscordEmoji.FromName(e.Context.Client, ":no_entry:");
+
+                // let's wrap the response into an embed
+                var embed = new DiscordEmbedBuilder
+                {
+                    Title = "Unknown Command",
+                    Description = $"{emoji} Command Failed for unknown reason",
                     Color = new DiscordColor(0xFF0000) // red
                 };
                 await e.Context.RespondAsync(embed);
