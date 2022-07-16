@@ -3,6 +3,7 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Exceptions;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
+using DSPlus.Examples;
 using DWBot.Commands;
 using Emzi0767.Utilities;
 using Microsoft.Extensions.DependencyInjection;
@@ -53,13 +54,21 @@ namespace ConsoleApp1
             commands = discord.UseCommandsNext(commandsConfig);
 
             //Register all commands to be used
-            commands.RegisterCommands<ClassDiceRollerCommand>();
+            commands.RegisterCommands<DiceRollerCommand>();
+
+            commands.RegisterCommands<ExampleUngrouppedCommands>();
+            commands.RegisterCommands<ExampleGrouppedCommands>();
+            commands.RegisterCommands<ExampleExecutableGroup>();
 
             discord.Ready += this.Client_Ready;
             discord.GuildAvailable += this.Client_GuildAvailable;
             discord.ClientErrored += this.Client_ClientError;
             commands.CommandExecuted += this.Commands_CommandExecuted;
             commands.CommandErrored += this.Commands_CommandErrored;
+
+
+            discord.Logger.LogInformation($"Prefix    :{ConfigurationManager.AppSettings["discord_prefix"]}");
+            discord.Logger.LogInformation($"Log Level :{ConfigurationManager.AppSettings["discord_logging"]}");
 
             //Start the bot
             await discord.ConnectAsync();
@@ -102,11 +111,11 @@ namespace ConsoleApp1
             if (e.Command?.QualifiedName == null)
             {
                 // log the error details
-                e.Context.Client.Logger.LogError(BotEventId, $"{e.Context.User.Username} tried executing '{e.Context.Message.Content}' but command does not exist", DateTime.Now);
+                e.Context.Client.Logger.LogError(BotEventId, $"{e.Context.Guild.Name}:{e.Context.User.Username} tried executing '{e.Context.Message.Content}' but command does not exist", DateTime.Now);
             }
             else
             {
-                e.Context.Client.Logger.LogError(BotEventId, $"{e.Context.User.Username} tried executing '{e.Command?.QualifiedName ?? "<unknown command>"}' but it errored: {e.Exception.GetType()}: {e.Exception.Message ?? "<no message>"}", DateTime.Now);
+                e.Context.Client.Logger.LogError(BotEventId, $"{e.Context.Guild.Name}:{e.Context.User.Username} tried executing '{e.Command?.QualifiedName ?? "<unknown command>"}' but it errored: {e.Exception.GetType()}: {e.Exception.Message ?? "<no message>"}", DateTime.Now);
             }
 
             // let's check if the error is a result of lack
@@ -127,7 +136,7 @@ namespace ConsoleApp1
                 };
                 await e.Context.RespondAsync(embed);
             }
-            else if ( e.Exception is DSharpPlus.CommandsNext.Exceptions.CommandNotFoundException)
+            else if (e.Exception is DSharpPlus.CommandsNext.Exceptions.CommandNotFoundException)
             {
                 var emoji = DiscordEmoji.FromName(e.Context.Client, ":no_entry:");
 
@@ -154,11 +163,12 @@ namespace ConsoleApp1
                 await e.Context.RespondAsync(embed);
             }
         }
-    
 
-    private static LogLevel GetLoggingLevel()
+        private LogLevel GetLoggingLevel()
         {
-            switch (ConfigurationManager.AppSettings["discord_logging"].ToLower())
+            var value = ConfigurationManager.AppSettings["discord_logging"].ToLower();
+
+            switch (value)
             {
                 case "none": return LogLevel.None;
                 case "trace": return LogLevel.Trace;

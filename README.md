@@ -14,6 +14,11 @@ Discord bot for Dungeon World games
   <appSettings>
 
     <add key="discord_token" value="generated from discord dev site"/>
+    <add key="discord_prefix" value="!"/>
+    <add key="discord_logging" value="information"/>
+    <!--
+      logging options: none, critical, error, warning, information, debug, trace
+    -->
 
   </appSettings>
 </configuration>
