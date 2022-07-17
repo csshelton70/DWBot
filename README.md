@@ -9,8 +9,9 @@ blah blah
 * !help <cmd>			More command details
 * !roll xdy			Rolls a dice xdy
 * !rollstat <stat>	Rolls based on character sheet
-* !dmmoves			Displays a list of dm moves	
-* !moves				displays a list of moves (generic and your class )
+* !moves dm			Displays a list of dm moves	
+* !moves dungeon    Displays a list of dungeon moves
+* !moves player		Displays a list of moves (generic and your character class )
 * !newcharacter		walks the user through creating a new character
 * !character			Displays character information
 * !set <stat> x		Set the value of a stat
