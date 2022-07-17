@@ -8,16 +8,29 @@ using DSharpPlus.Entities;
 
 namespace DWBot.Commands
 {
-    public class DmMoves
+    public class MovesCommand : BaseCommandModule
     {
         [Command("gmmoves")]
         [Description("Returns a list of GM Moves")]
-        [Aliases("dmmmoves")]
+        [Aliases("dmmoves")]
         public async Task gmmoves(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
             var emoji = DiscordEmoji.FromName(ctx.Client, ":fire:");
-            await ctx.RespondAsync($"{emoji} Pong! Ping: {ctx.Client.Ping}ms");
+            var builder = new DiscordEmbedBuilder
+            {
+                Title = "GM Commands",
+                Color = DiscordColor.Azure,
+                Description = "description\r\n* 1\r\n- 2",
+               
+
+            };
+
+            builder.AddField("name", "inline treue", true);
+            builder.AddField("name", "inline false", false);
+
+
+            await ctx.RespondAsync(builder);
         }
     }
 }

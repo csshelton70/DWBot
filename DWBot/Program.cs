@@ -68,11 +68,12 @@ namespace ConsoleApp1
 
             //Register all commands to be used
             commands.RegisterCommands<DiceRollerCommand>();
+            commands.RegisterCommands<MovesCommand>();
 
-            commands.RegisterCommands<ExampleUngrouppedCommands>();
-            commands.RegisterCommands<ExampleGrouppedCommands>();
-            commands.RegisterCommands<ExampleExecutableGroup>();
-            commands.RegisterCommands<ExampleInteractiveCommands>();
+            //commands.RegisterCommands<ExampleUngrouppedCommands>();
+            //commands.RegisterCommands<ExampleGrouppedCommands>();
+            //commands.RegisterCommands<ExampleExecutableGroup>();
+            //commands.RegisterCommands<ExampleInteractiveCommands>();
 
 
             discord.Ready += this.Client_Ready;
