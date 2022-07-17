@@ -58,5 +58,9 @@ blah blah
 Thanks to:
 * [Sage LaTorra and Adam Koebel for creating the Dungeon World game.](https://dungeon-world.com/)
 * [Meguey Baker and Vincent Baker for creating the Apocalypse Worlds and the Powered by the Apocalypse (PbtA) concept.](http://apocalypse-world.com/)
-* 
+* [Mileszs: Json data](https://github.com/mileszs/dungeon-world-data)
+* [Vindexus: Json data](https://github.com/Vindexus/DungeonWorldData)
+* [BotheredByBees: Json data](https://github.com/botheredbybees/dungeonworld)
+* []()A
+
 
