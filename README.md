@@ -42,9 +42,10 @@ blah blah
 </configuration>
 ```
 
-# Libraries used
+# Resources used
 *  [DSharpPlus](https://github.com/DSharpPlus/DSharpPlus)
 *  [DiceRoller](https://github.com/skizzerz/DiceRoller)
+*  [Emojis] (https://emojipedia.org/twitter/)
 
 
 ## Nuget Commands to install Packages
