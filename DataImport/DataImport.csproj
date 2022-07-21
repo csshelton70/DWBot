@@ -7,10 +7,11 @@
 
   <ItemGroup>
     <None Remove="RawData.Json" />
+    <None Remove="RawDataSources\RawData.Json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="RawData.Json" />
+    <EmbeddedResource Include="RawDataSources\RawData.Json" />
   </ItemGroup>
 
   <ItemGroup>

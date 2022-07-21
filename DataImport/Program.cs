@@ -23,7 +23,7 @@ namespace DataImport
             string myJsonResponse = "";
 
             var embeddedProvider = new EmbeddedFileProvider(Assembly.GetExecutingAssembly());
-            using (var stream = embeddedProvider.GetFileInfo("RawData.Json").CreateReadStream())
+            using (var stream = embeddedProvider.GetFileInfo(".\\RawDataSources\\RawData.Json").CreateReadStream())
             {
                 using (var reader = new StreamReader(stream))
                 {
