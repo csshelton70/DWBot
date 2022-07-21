@@ -1,4 +1,5 @@
-﻿using DSharpPlus;
+﻿using DatabaseLayer;
+using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Exceptions;
 using DSharpPlus.Entities;
@@ -74,6 +75,9 @@ namespace ConsoleApp1
             //commands.RegisterCommands<ExampleGrouppedCommands>();
             //commands.RegisterCommands<ExampleExecutableGroup>();
             //commands.RegisterCommands<ExampleInteractiveCommands>();
+
+            //This section is just for DB Testing
+           // var db = new MoveContext();
 
 
             discord.Ready += this.Client_Ready;
