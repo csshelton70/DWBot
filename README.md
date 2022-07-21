@@ -5,19 +5,31 @@ Discord bot for Dungeon World games
 blah blah
 
 # Commands
-* !help				Gives a list of commands
-* !help <cmd>			More command details
-* !roll xdy			Rolls a dice xdy
-* !rollstat <stat>	Rolls based on character sheet
-* !moves dm			Displays a list of dm moves	
-* !moves dungeon    Displays a list of dungeon moves
-* !moves player		Displays a list of moves (generic and your character class )
-* !newcharacter		walks the user through creating a new character
+* !help				    Gives a list of commands
+* !help <cmd>		    More details about command <cmd>
+* !roll <xdy>			    Rolls a dice based on the format string <xdy>
+* !rollstat <stat>	    Rolls based on character sheet
+* !rollmove <name>      Rolls the move indicated in command and returns appropriate result
+* !moves dm			    Displays a list of dm moves	
+* !moves dungeon        Displays a list of dungeon moves
+* !moves player		    Displays a list of moves (generic and your character class )
+* !moves special        Displays a list of special moves
+* !moves help <name>    Returns detailed information about the move.
+* !newcharacter		    walks the user through creating a new character
 * !character			Displays character information
-* !set <stat> x		Set the value of a stat
-* !shift <stat> +/-	Adjusts the value of a stat
+* !set <stat> <x>	    Set the value of a <stat> to <x>
+* !shift <stat> <+/-x>  Adjusts the value of a <stat> by <x>
 * !endSession			Ends the sessions and prompts a user for XP advancement
 * !addXp				Adds 1 XP to character sheet
+
+#Stats that can be adjusted
+* str
+* int
+* wis
+* dex
+* con
+* cha
+* xp
 
 # Running your own copy of the bot
 1. Clone the repo
