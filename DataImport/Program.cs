@@ -1,5 +1,6 @@
 ﻿using DatabaseLayer;
 using DatabaseLayer.Models;
+using DatabaseLayer.Services;
 using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
 using System;
@@ -14,7 +15,7 @@ namespace DataImport
     internal class Program
     {
         private static Root root;
-        private static MoveContext ctx;
+        private static MovesService movesService;
 
         static void Main(string[] args)
         {
@@ -23,7 +24,7 @@ namespace DataImport
             string myJsonResponse = "";
 
             var embeddedProvider = new EmbeddedFileProvider(Assembly.GetExecutingAssembly());
-            using (var stream = embeddedProvider.GetFileInfo(".\\RawDataSources\\RawData.Json").CreateReadStream())
+            using (var stream = embeddedProvider.GetFileInfo(@"RawDataSources\RawData.Json").CreateReadStream())
             {
                 using (var reader = new StreamReader(stream))
                 {
@@ -33,15 +34,16 @@ namespace DataImport
 
 
             root = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-            ctx = new MoveContext();
+            movesService = new MovesService();
 
             Console.WriteLine("Starting");
 
+            //Moves
             Console.WriteLine("Adding Moves");
-            AddMoves();
-            
+            //AddMoves();
+
             Console.WriteLine("Adding Moves again to catch requires/replaces links");
-            AddMoves();
+            //AddMoves();
 
             Console.WriteLine("Adding Basic Moves");
             AddBasicMoves();
@@ -51,6 +53,20 @@ namespace DataImport
 
             //AddGMMoves();
             //AddDungeonMoves();
+
+
+            //Character Classes
+            //Console.WriteLine("Adding Character Bonds");
+            //AddCharacterBonds();
+
+            //Console.WriteLine("Adding Charactere Spells");
+            //AddCharacterSpells();
+
+            //Console.WriteLine("Adding Character Classes");
+            //AddCharacterClasses();
+
+
+
             Console.WriteLine("Done");
             Console.ReadLine();
 
@@ -303,33 +319,37 @@ namespace DataImport
 
         private static void AddBasicMoves()
         {
+            BasicMovesService bms = new BasicMovesService();
+            MovesService ms = new MovesService();
 
-            ctx.BasicMoves_CreateIfMissing(ctx.Moves_Read("hack_and_slash").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.BasicMoves_CreateIfMissing(ctx.Moves_Read("defy_danger").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.BasicMoves_CreateIfMissing(ctx.Moves_Read("defend").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.BasicMoves_CreateIfMissing(ctx.Moves_Read("volley").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.BasicMoves_CreateIfMissing(ctx.Moves_Read("discern_realities").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.BasicMoves_CreateIfMissing(ctx.Moves_Read("parley").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.BasicMoves_CreateIfMissing(ctx.Moves_Read("spout_lore").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.BasicMoves_CreateIfMissing(ctx.Moves_Read("aid_or_interfere").GetAwaiter().GetResult()).GetAwaiter();
+            bms.CreateIfMissingAsync(ms.ReadAsync("hack_and_slash").GetAwaiter().GetResult()).GetAwaiter();
+            bms.CreateIfMissingAsync(ms.ReadAsync("defy_danger").GetAwaiter().GetResult()).GetAwaiter();
+            bms.CreateIfMissingAsync(ms.ReadAsync("defend").GetAwaiter().GetResult()).GetAwaiter();
+            bms.CreateIfMissingAsync(ms.ReadAsync("volley").GetAwaiter().GetResult()).GetAwaiter();
+            bms.CreateIfMissingAsync(ms.ReadAsync("discern_realities").GetAwaiter().GetResult()).GetAwaiter();
+            bms.CreateIfMissingAsync(ms.ReadAsync("parley").GetAwaiter().GetResult()).GetAwaiter();
+            bms.CreateIfMissingAsync(ms.ReadAsync("spout_lore").GetAwaiter().GetResult()).GetAwaiter();
+            bms.CreateIfMissingAsync(ms.ReadAsync("aid_or_interfere").GetAwaiter().GetResult()).GetAwaiter();
         }
 
         private static void AddSpecialMoves()
         {
+            SpecialMovesService sms = new SpecialMovesService();
+            MovesService ms = new MovesService();
 
-            ctx.SpecialMoves_CreateIfMissing(ctx.Moves_Read("encumbrance").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.SpecialMoves_CreateIfMissing(ctx.Moves_Read("make_camp").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.SpecialMoves_CreateIfMissing(ctx.Moves_Read("take_watch").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.SpecialMoves_CreateIfMissing(ctx.Moves_Read("undertake_a_perilous_journey").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.SpecialMoves_CreateIfMissing(ctx.Moves_Read("last_breath").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.SpecialMoves_CreateIfMissing(ctx.Moves_Read("end_of_session").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.SpecialMoves_CreateIfMissing(ctx.Moves_Read("level_up").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.SpecialMoves_CreateIfMissing(ctx.Moves_Read("carouse").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.SpecialMoves_CreateIfMissing(ctx.Moves_Read("supply").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.SpecialMoves_CreateIfMissing(ctx.Moves_Read("recover").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.SpecialMoves_CreateIfMissing(ctx.Moves_Read("recruit").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.SpecialMoves_CreateIfMissing(ctx.Moves_Read("outstanding_warrants").GetAwaiter().GetResult()).GetAwaiter();
-            ctx.SpecialMoves_CreateIfMissing(ctx.Moves_Read("bolster").GetAwaiter().GetResult()).GetAwaiter();
+            sms.CreateIfMissingAsync(ms.ReadAsync("encumbrance").GetAwaiter().GetResult()).GetAwaiter();
+            sms.CreateIfMissingAsync(ms.ReadAsync("make_camp").GetAwaiter().GetResult()).GetAwaiter();
+            sms.CreateIfMissingAsync(ms.ReadAsync("take_watch").GetAwaiter().GetResult()).GetAwaiter();
+            sms.CreateIfMissingAsync(ms.ReadAsync("undertake_a_perilous_journey").GetAwaiter().GetResult()).GetAwaiter();
+            sms.CreateIfMissingAsync(ms.ReadAsync("last_breath").GetAwaiter().GetResult()).GetAwaiter();
+            sms.CreateIfMissingAsync(ms.ReadAsync("end_of_session").GetAwaiter().GetResult()).GetAwaiter();
+            sms.CreateIfMissingAsync(ms.ReadAsync("level_up").GetAwaiter().GetResult()).GetAwaiter();
+            sms.CreateIfMissingAsync(ms.ReadAsync("carouse").GetAwaiter().GetResult()).GetAwaiter();
+            sms.CreateIfMissingAsync(ms.ReadAsync("supply").GetAwaiter().GetResult()).GetAwaiter();
+            sms.CreateIfMissingAsync(ms.ReadAsync("recover").GetAwaiter().GetResult()).GetAwaiter();
+            sms.CreateIfMissingAsync(ms.ReadAsync("recruit").GetAwaiter().GetResult()).GetAwaiter();
+            sms.CreateIfMissingAsync(ms.ReadAsync("outstanding_warrants").GetAwaiter().GetResult()).GetAwaiter();
+            sms.CreateIfMissingAsync(ms.ReadAsync("bolster").GetAwaiter().GetResult()).GetAwaiter();
 
         }
 
@@ -346,6 +366,7 @@ namespace DataImport
             string description = y.description;
             string? requires = null;
             string? replaces = null;
+
             try
             {
                 requires = y.requires;
@@ -359,12 +380,11 @@ namespace DataImport
             catch
             { }
 
-            bool exists = Task.Run(() => ctx.Moves_DoesKeyExist(key)).GetAwaiter().GetResult();
-
+            bool exists = movesService.DoesKeyExistAsync(key).GetAwaiter().GetResult();
 
             if (!exists)
             {
-                if (Task.Run(() => ctx.Moves_Create(name, key, description, requires, replaces)).GetAwaiter().GetResult() == true)
+                if (Task.Run(() => movesService.CreateAsync(name, key, description, requires, replaces)).GetAwaiter().GetResult() == true)
                 {
                     Console.WriteLine($"    Added {key}");
                 }
@@ -378,18 +398,6 @@ namespace DataImport
                 Console.WriteLine($"    Skipping {key}");
             }
         }
-
-        private static void AddBasicMove(string key)
-        {
-            var m = ctx.Moves_Read(key);
-
-            if (m != null)
-            {
-
-            }
-        }
-
-
     }
 }
 

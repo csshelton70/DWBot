@@ -5,14 +5,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DatabaseLayer.Models.Characters
 {
-    [Table("Spells")]
-    public class Spell : Entity
+    [Table("Races")]
+    public class Race : Entity
     {
         [Required]
         public string Name { get; set; }
 
         [Required]
         public string Description { get; set; }
+
+
+        public ICollection<RaceNameSuggestion> RaceNameSuggestions { get; set; }
 
 
 

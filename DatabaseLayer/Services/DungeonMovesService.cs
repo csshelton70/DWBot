@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DatabaseLayer.Models
+namespace DatabaseLayer.Services
 {
-    public class SpecialMove : Entity
+    internal class DungeonMovesService
     {
-
     }
 }
